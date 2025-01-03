@@ -213,7 +213,8 @@ export default function UserDashboard() {
               />
             </div>
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {filteredVideos?.map((video) => (
+            {filteredVideos.length > 0 ? (
+              filteredVideos?.map((video) => (
                 <div
                   key={video?._id}
                   className="bg-white shadow rounded-lg overflow-hidden"
@@ -270,7 +271,15 @@ export default function UserDashboard() {
                     </form>
                   </div>
                 </div>
-              ))}
+              ))
+            ) : (
+              <div className="col-span-1 sm:col-span-2 lg:col-span-3">
+                <div className="bg-gray-100 rounded-lg p-6 text-center">
+                  <h2 className="text-xl font-semibold">No Data Found</h2>
+                  <p className="mt-2 text-gray-600">No videos match your search criteria.</p>
+                </div>
+              </div>
+            )}
             </div>
           </div>
         </main>
