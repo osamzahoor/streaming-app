@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // Create an Axios instance with baseURL set to the server address
-const API = axios.create({ baseURL:"http://localhost:5000" });
+const API = axios.create({ baseURL:"https://stream-app-rg.azurewebsites.net" });
 // Interceptor to attach JWT token from localStorage to every request
 API.interceptors.request.use((req) => {
     const token = localStorage.getItem("token");
