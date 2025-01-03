@@ -25,8 +25,8 @@ import UserDashboard from "./components/UserDashboard"; // User Dashboard for re
 import Profile from "./components/Profile"; // Profile component for user profile management
 import Home from "./components/Home"; // Home component that displays main page
 import ProtectedRoute from "./ProtactedRoute"; // ProtectedRoute for guarding routes that require authentication
-import VideoDetail from "./components/VideoList"; // Video Detail page showing details of a selected video
-import InfiniteVideoList from "./components/VideoList"; // Infinite scroll video list
+import VideoDetail from "./components/VideoDetails"; // Video Detail page showing details of a selected video
+import InfiniteVideoList from "./components/VideoFeed"; // Infinite scroll video list
 
 function App() {
   return (
@@ -38,22 +38,22 @@ function App() {
           <Route exact path="/" element={<Home />} />
           
           {/* Route to the Infinite Video List page */}
-          <Route path="/list" element={<InfiniteVideoList />} />
+          <Route path="/list" element={<ProtectedRoute element={<InfiniteVideoList />} />} />
           
           {/* Route to the Login page */}
           <Route exact path="/login" element={<Auth />} />
           
           {/* Route to the User Profile page */}
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile" element={<ProtectedRoute element={<Profile />} />} />
           
           {/* Route to the Admin Dashboard, accessible only to admins */}
-          <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/admin" element={<ProtectedRoute element={<AdminDashboard />} />} />
           
           {/* Protected Route for User Dashboard, accessible only if authenticated */}
           <Route path="/dashboard" element={<ProtectedRoute element={<UserDashboard />} />} />
           
           {/* Route to the Video Detail page, dynamic based on video ID */}
-          <Route path="/video/:id" element={<VideoDetail />} />
+          <Route path="/video/:id" element={<ProtectedRoute element={<VideoDetail />} />} />
         </Routes>
         
         {/* Toast container for displaying notifications */}
