@@ -98,7 +98,7 @@ export default function UserDashboard() {
     // Handle user sign-out (removes token and navigates to login page)
    const handleSignOut = () => {
     localStorage.removeItem("token");
-    navigate("/login");
+    navigate("/");
     toast.success("You have been signed out.");
   };
 

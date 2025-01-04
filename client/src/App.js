@@ -23,7 +23,6 @@ import Auth from "./components/Auth"; // Auth component for login/signup
 import AdminDashboard from "./components/AdminDashboard"; // Admin Dashboard for admin users
 import UserDashboard from "./components/UserDashboard"; // User Dashboard for regular users
 import Profile from "./components/Profile"; // Profile component for user profile management
-import Home from "./components/Home"; // Home component that displays main page
 import ProtectedRoute from "./ProtactedRoute"; // ProtectedRoute for guarding routes that require authentication
 import VideoDetail from "./components/VideoDetails"; // Video Detail page showing details of a selected video
 import InfiniteVideoList from "./components/VideoFeed"; // Infinite scroll video list
@@ -34,14 +33,11 @@ function App() {
       <div>
         {/* Define the main routes of the application */}
         <Routes>
-          {/* Route to the Home page */}
-          <Route exact path="/" element={<Home />} />
-          
           {/* Route to the Infinite Video List page */}
           <Route path="/list" element={<ProtectedRoute element={<InfiniteVideoList />} />} />
           
           {/* Route to the Login page */}
-          <Route exact path="/login" element={<Auth />} />
+          <Route exact path="/" element={<Auth />} />
           
           {/* Route to the User Profile page */}
           <Route path="/profile" element={<ProtectedRoute element={<Profile />} />} />
