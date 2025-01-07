@@ -1,0 +1,48 @@
+# Comments are provided throughout this file to help you get started.
+# If you need more help, visit the Docker Compose reference guide at
+# https://docs.docker.com/go/compose-spec-reference/
+
+version: '3.8'  # Specify the version of the Compose file format
+
+services:
+  server:
+    build:
+      context: .
+    environment:
+      NODE_ENV: production
+      # MongoDB connection string as an environment variable
+      MONGODB_URI: mongodb+srv://osamzahoor:CyWBNqhb3ovJ81pE@cluster0.axxne.mongodb.net/mydatabase
+      ACCOUNT_NAME: streamapp  # Corrected variable name
+      CONTAINER_NAME: blobby  
+      SAS_TOKEN: sv=2022-11-02&ss=bfqt&srt=sco&sp=rwdlacupiytfx&se=2025-01-08T01:27:11Z&st=2025-01-07T17:27:11Z&spr=https,http&sig=klnF8RIe0DDfixTYarZCMHUKmYsXFN%2BohgL4iAD0cas%3D
+      # OR
+      AZURE_STORAGE_CONNECTION_STRING: BlobEndpoint=https://streamapp.blob.core.windows.net/;QueueEndpoint=https://streamapp.queue.core.windows.net/;FileEndpoint=https://streamapp.file.core.windows.net/;TableEndpoint=https://streamapp.table.core.windows.net/;SharedAccessSignature=sv=2022-11-02&ss=bfqt&srt=sco&sp=rwdlacupiytfx&se=2025-01-08T01:27:11Z&st=2025-01-07T17:27:11Z&spr=https,http&sig=klnF8RIe0DDfixTYarZCMHUKmYsXFN%2BohgL4iAD0cas%3D  # Use this line instead
+    ports:
+      - 5000:5000
+    depends_on:
+      # Ensure that MongoDB service is started before the server
+      - mongo
+
+  mongo:
+    image: mongo:latest  # Use the latest MongoDB image
+    restart: always
+    environment:
+      MONGO_INITDB_DATABASE: mydatabase  # Initial database to create
+    ports:
+      - 27017:27017  # Expose MongoDB port
+    volumes: 
+      - mongo-data:/data/db  # Persist MongoDB data
+
+
+  frontend:  # Define the frontend service
+    build: ./client  # Specify the build context for the frontend
+    volumes:
+      - ./client:/app  # Mount the client directory
+      - /app/node_modules  # Keep node_modules separate
+    ports:
+      - 3000:3000  # Expose the frontend port
+    environment:
+      - NODE_ENV=development  # Set environment variable for frontend
+
+volumes:
+  mongo-data:  # Define a named volume for MongoDB data persistence

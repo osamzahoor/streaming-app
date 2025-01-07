@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile  # Ensure no comma at the end
+    container_name: backend-container
+    ports:
+      - "5000:5000"
+    environment:
+      - MONGO_URI=mongodb+srv://osamzahoor:CyWBNqhb3ovJ81pE@cluster0.axxne.mongodb.net/mydatabase
+
+  frontend:
+    build:
+      context: ./client  # Specify the context for the frontend correctly
+    container_name: frontend-container
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
